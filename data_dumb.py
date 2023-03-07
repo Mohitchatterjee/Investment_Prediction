@@ -4,9 +4,9 @@ import pandas as pd
 
 client = pymongo.MongoClient('mongodb+srv://mohit:mohit@cluster0.frbovmx.mongodb.net/test')
 
-DataBaseName = 'Stocks_Price'
-CollectionName = 'Company'
-DataSetPath = '/config/workspace/Google_Stock_Price_Train.csv'
+DataBaseName = 'Stocks_Name'
+CollectionName = 'Price'
+DataSetPath = '/config/workspace/GOOG.csv'
 
 if __name__ == '__main__':
     data = pd.read_csv(DataSetPath)

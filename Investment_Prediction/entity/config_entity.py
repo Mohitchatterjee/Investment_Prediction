@@ -7,8 +7,8 @@ class TrainingPipeLineConfig:
 
 class DataIngestionConfig:
     def __init__(self,trainingPipelineConfig):
-        self.databaseName = 'Stocks_Price'
-        self.colectionName = 'Company'
+        self.databaseName = 'Stocks_Name'
+        self.colectionName = 'Price'
         self.dataIngestionDIR = os.path.join(trainingPipelineConfig.artifactDir,'Data Ingestion')
         self.featureStoreDIR = os.path.join(self.dataIngestionDIR,'StocksPrice')
         self.trainingDataDIR = os.path.join(self.featureStoreDIR,'TrainingData.csv')
@@ -17,7 +17,12 @@ class DataIngestionConfig:
     def to_dict(self):
         return self.__dict__
         
-class DataValidationConfig:...
+class DataValidationConfig:
+     def __init__(self,trainingPipelineConfig):
+        self.dataValidationDIR = os.path.join(trainingPipelineConfig.artifactDir,'Data Validation')
+        self.reportFilePath = os.path.join(self.dataValidationDIR,'report.yaml')
+        self.missingThreshold = 0.2
+        
 class DataTransformationConfig:...
 class ModelTranerConfig:...
 class ModelEvaluateConfig:...
