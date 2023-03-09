@@ -6,6 +6,8 @@ from Investment_Prediction.exception import InvestmentPredictionException
 from Investment_Prediction.entity import config_entity
 from Investment_Prediction.components.DataIngestion import DataIngestion
 from Investment_Prediction.components.DataValidation import DataValidation
+from Investment_Prediction.components.DataTransformation import DataTransformation
+
 
 if __name__ == "__main__":
     try:
@@ -13,12 +15,17 @@ if __name__ == "__main__":
         trainingPipelineConfig = config_entity.TrainingPipeLineConfig()
         dataIngestionConfig = config_entity.DataIngestionConfig(trainingPipelineConfig)
         data_ingestion_config = DataIngestion(dataIngestionConfig)
+        dataIngestionConfig = data_ingestion_config.initiateDataIngestionConfig()
         
-        trainingDataFrame = pd.read_csv(data_ingestion_config.initiateDataIngestionConfig().trainingDataDIR)
+        DataFrame = pd.read_csv(dataIngestionConfig.featureStoreDIR)
         
         dataValidationConfig = config_entity.DataValidationConfig(trainingPipelineConfig)
         data_validation_config = DataValidation(dataValidationConfig)
-        data_validation_config.initiateDataValidationConfig(trainingDataFrame)
+        data_validation_config.initiateDataValidationConfig(DataFrame)
+
+        dataTransformConfig = config_entity.DataTransformationConfig(trainingPipelineConfig)
+        data_transformation_config = DataTransformation(dataTransformConfig,dataIngestionConfig)
+        data_transformation_config.initiateDataTransformConfig(DataFrame)
 
     except Exception as e:
         raise InvestmentPredictionException(e,sys)

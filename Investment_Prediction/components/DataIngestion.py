@@ -13,28 +13,31 @@ class DataIngestion:
         self.dataIngestionConfig = dataIngestionConfig
     
     def initiateDataIngestionConfig(self):
-        df =  getCollectionAsDataFrame(DataBaseName=self.dataIngestionConfig.databaseName,
-                                       CollectionName=self.dataIngestionConfig.colectionName)
+        try:
+            df =  getCollectionAsDataFrame(DataBaseName=self.dataIngestionConfig.databaseName,
+                                        CollectionName=self.dataIngestionConfig.colectionName)
 
 
-        trainData,testData = train_test_split(df,test_size=0.2,random_state=55)
+            trainData,testData = train_test_split(df,test_size=0.2,random_state=55)
 
-        featureStorePath = os.path.dirname(self.dataIngestionConfig.featureStoreDIR)
-        os.makedirs(featureStorePath,exist_ok=True)
+            featureStorePath = os.path.dirname(self.dataIngestionConfig.featureStoreDIR)
+            os.makedirs(featureStorePath,exist_ok=True)
 
-        trainingPath = os.path.dirname(self.dataIngestionConfig.trainingDataDIR)
-        os.makedirs(trainingPath,exist_ok=True)
+            # trainingPath = os.path.dirname(self.dataIngestionConfig.trainingDataDIR)
+            # os.makedirs(trainingPath,exist_ok=True)
 
-        testPath = os.path.dirname(self.dataIngestionConfig.testDataDIR)
-        os.makedirs(testPath,exist_ok=True)
+            # testPath = os.path.dirname(self.dataIngestionConfig.testDataDIR)
+            # os.makedirs(testPath,exist_ok=True)
 
-        trainData.to_csv(path_or_buf=self.dataIngestionConfig.trainingDataDIR,index=False)  
-        testData.to_csv(path_or_buf=self.dataIngestionConfig.testDataDIR,index=False)
+            df.to_csv(path_or_buf=self.dataIngestionConfig.featureStoreDIR,index=False)  
+            # testData.to_csv(path_or_buf=self.dataIngestionConfig.testDataDIR,index=False)
 
-        #Prepare artifact
-        data_ingestion_artifact = artifact_entity.DataIngestionArtifact(
-                featureStoreDIR=self.dataIngestionConfig.dataIngestionDIR,
-            trainingDataDIR=self.dataIngestionConfig.trainingDataDIR, 
-            testDataDIR=self.dataIngestionConfig.testDataDIR)
-
-        return data_ingestion_artifact     
+            #Prepare artifact
+            data_ingestion_artifact = artifact_entity.DataIngestionArtifact(
+                    featureStoreDIR=self.dataIngestionConfig.featureStoreDIR,
+                trainingDataDIR=self.dataIngestionConfig.trainingDataDIR, 
+                testDataDIR=self.dataIngestionConfig.testDataDIR)
+            
+            return data_ingestion_artifact    
+        except Exception as e:
+            raise InvestmentPredictionException(e,sys)

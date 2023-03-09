@@ -7,7 +7,16 @@ class DataIngestionArtifact:
 @dataclass
 class DataValidationArtifact:
     reportFilePath:str
-class DataTransformationArtifact:...
+
+@dataclass
+class DataTransformationArtifact:
+    transformationObjPath:str
+    X_TrainPath:str
+    X_TestPath:str
+    Y_TrainPath:str
+    Y_TestPath:str
+
+
 class ModelTranerArtifact:...
 class ModelEvaluateArtifact:...
 class ModelPusherArtifact:...
