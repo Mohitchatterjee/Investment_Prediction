@@ -16,7 +16,11 @@ class DataTransformationArtifact:
     Y_TrainPath:str
     Y_TestPath:str
 
+@dataclass
+class ModelTranerArtifact:
+    modelPath:str
+    trainingAccuracy:float
+    testingAccuracy:float
 
-class ModelTranerArtifact:...
 class ModelEvaluateArtifact:...
 class ModelPusherArtifact:...

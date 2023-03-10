@@ -77,19 +77,23 @@ class DataTransformation:
             
             X_TrainPath = os.path.dirname(self.dataTransformationConfig.X_TrainPath)
             os.makedirs(X_TrainPath,exist_ok=True)
-            savetxt(self.dataTransformationConfig.X_TrainPath, X_train, delimiter=',')
+            np.save(self.dataTransformationConfig.X_TrainPath, X_train, allow_pickle=True)
+            # savetxt(self.dataTransformationConfig.X_TrainPath, X_train, delimiter=',')
 
             X_TestPath = os.path.dirname(self.dataTransformationConfig.X_TrainPath)
             os.makedirs(X_TestPath,exist_ok=True)
-            savetxt(self.dataTransformationConfig.X_TestPath, X_test, delimiter=',')
+            np.save(self.dataTransformationConfig.X_TestPath, X_test, allow_pickle=True)
+            # savetxt(self.dataTransformationConfig.X_TestPath, X_test, delimiter=',')
 
             Y_TrainPath = os.path.dirname(self.dataTransformationConfig.Y_TrainPath)
             os.makedirs(Y_TrainPath,exist_ok=True)
-            savetxt(self.dataTransformationConfig.Y_TrainPath, Y_train, delimiter=',')
+            np.save(self.dataTransformationConfig.Y_TrainPath, Y_train, allow_pickle=True)
+            # savetxt(self.dataTransformationConfig.Y_TrainPath, Y_train, delimiter=',')
 
             Y_TestPath = os.path.dirname(self.dataTransformationConfig.Y_TrainPath)
             os.makedirs(Y_TestPath,exist_ok=True)
-            savetxt(self.dataTransformationConfig.Y_TestPath, Y_test, delimiter=',')
+            np.save(self.dataTransformationConfig.Y_TestPath, Y_test, allow_pickle=True)
+            # savetxt(self.dataTransformationConfig.Y_TestPath, Y_test, delimiter=',')
 
             print('Data Transformation Done...')
 

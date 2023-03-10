@@ -25,13 +25,17 @@ class DataValidationConfig:
         
 class DataTransformationConfig:
     def __init__(self,trainingPipelineConfig):
-        self.dataValidationDIR = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation')
+        # self.dataTransformationDIR = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation')
         # self.transformationObjPath = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation','transform.pkl')
-        self.X_TrainPath = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation','X_train.csv')
-        self.X_TestPath = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation','X_test.csv')
-        self.Y_TrainPath = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation','Y_train.csv')
-        self.Y_TestPath = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation','Y_test.csv')
+        self.X_TrainPath = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation','X_train.npy')
+        self.X_TestPath = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation','X_test.npy')
+        self.Y_TrainPath = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation','Y_train.npy')
+        self.Y_TestPath = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation','Y_test.npy')
 
-class ModelTranerConfig:...
+class ModelTrainerConfig:
+     def __init__(self,trainingPipelineConfig):
+        self.modelTrainerDIR = os.path.join(trainingPipelineConfig.artifactDir,'Model Trainer')
+        self.modelPath = os.path.join(self.modelTrainerDIR,'model','predictionModel.pkl')
+
 class ModelEvaluateConfig:...
 class ModelPusherConfig:...

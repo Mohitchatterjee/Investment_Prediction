@@ -1,9 +1,11 @@
 import pandas as pd
+import numpy as np
 from Investment_Prediction.logger import logging
 from Investment_Prediction.exception import InvestmentPredictionException
 from Investment_Prediction.config import Mongo_client
 import os,sys
 import yaml
+import csv
 
 
 def getCollectionAsDataFrame(DataBaseName,CollectionName):
@@ -23,3 +25,17 @@ def insertintoYamlFile(filePath,data):
     
     with open(filePath,'w') as file:
         yaml.dump(data,file)
+
+def load_numpy_array_data(file_path: str) -> np.array:
+    """
+    load numpy array data from file
+    file_path: str location of file to load
+    return: np.array data loaded
+    """
+    try:
+        
+        with open(file_path, "rb") as file_obj:
+            return np.load(file_obj,encoding='latin1', allow_pickle=True)
+             
+    except Exception as e:
+        raise InvestmentPredictionException(e,sys)
