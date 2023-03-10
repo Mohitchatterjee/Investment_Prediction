@@ -26,7 +26,7 @@ class DataValidationConfig:
 class DataTransformationConfig:
     def __init__(self,trainingPipelineConfig):
         self.dataValidationDIR = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation')
-        self.transformationObjPath = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation','transform.pkl')
+        # self.transformationObjPath = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation','transform.pkl')
         self.X_TrainPath = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation','X_train.csv')
         self.X_TestPath = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation','X_test.csv')
         self.Y_TrainPath = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation','Y_train.csv')

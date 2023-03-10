@@ -25,7 +25,7 @@ if __name__ == "__main__":
 
         dataTransformConfig = config_entity.DataTransformationConfig(trainingPipelineConfig)
         data_transformation_config = DataTransformation(dataTransformConfig,dataIngestionConfig)
-        data_transformation_config.initiateDataTransformConfig(DataFrame)
+        dataTransformationConfig = data_transformation_config.initiateDataTransformConfig(DataFrame)
 
     except Exception as e:
         raise InvestmentPredictionException(e,sys)

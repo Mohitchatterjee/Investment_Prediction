@@ -60,7 +60,7 @@ class DataTransformation:
 
             X_train, X_valid, Y_train, Y_valid = train_test_split(
             featureData, targetData, test_size=0.2, random_state=55)
-
+           
             return X_train, X_valid, Y_train, Y_valid
 
         except Exception as e:
@@ -74,14 +74,14 @@ class DataTransformation:
             targetDF = DataFrame[['target']]
             scaledData = self.standardScalerMethod(featureDF)
             X_train, X_test, Y_train, Y_test = self.splitingData(scaledData,targetDF)
-          
+            
             X_TrainPath = os.path.dirname(self.dataTransformationConfig.X_TrainPath)
             os.makedirs(X_TrainPath,exist_ok=True)
             savetxt(self.dataTransformationConfig.X_TrainPath, X_train, delimiter=',')
 
             X_TestPath = os.path.dirname(self.dataTransformationConfig.X_TrainPath)
             os.makedirs(X_TestPath,exist_ok=True)
-            savetxt(self.dataTransformationConfig.X_TestPath, X_train, delimiter=',')
+            savetxt(self.dataTransformationConfig.X_TestPath, X_test, delimiter=',')
 
             Y_TrainPath = os.path.dirname(self.dataTransformationConfig.Y_TrainPath)
             os.makedirs(Y_TrainPath,exist_ok=True)
@@ -89,12 +89,19 @@ class DataTransformation:
 
             Y_TestPath = os.path.dirname(self.dataTransformationConfig.Y_TrainPath)
             os.makedirs(Y_TestPath,exist_ok=True)
-            savetxt(self.dataTransformationConfig.Y_TestPath, Y_train, delimiter=',')
+            savetxt(self.dataTransformationConfig.Y_TestPath, Y_test, delimiter=',')
 
             print('Data Transformation Done...')
 
 
+            data_transformation_artifact = artifact_entity.DataTransformationArtifact(
+                X_TrainPath=self.dataTransformationConfig.X_TrainPath,
+                X_TestPath=self.dataTransformationConfig.X_TrainPath,
+                Y_TrainPath=self.dataTransformationConfig.Y_TrainPath,
+                Y_TestPath=self.dataTransformationConfig.Y_TrainPath
+            )
 
+            return data_transformation_artifact
 
 
 

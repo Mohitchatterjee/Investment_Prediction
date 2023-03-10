@@ -10,7 +10,7 @@ class DataValidationArtifact:
 
 @dataclass
 class DataTransformationArtifact:
-    transformationObjPath:str
+    # transformationObjPath:str
     X_TrainPath:str
     X_TestPath:str
     Y_TrainPath:str
