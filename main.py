@@ -8,6 +8,7 @@ from Investment_Prediction.components.DataIngestion import DataIngestion
 from Investment_Prediction.components.DataValidation import DataValidation
 from Investment_Prediction.components.DataTransformation import DataTransformation
 from Investment_Prediction.components.ModelTrainer import ModelTrainer
+from Investment_Prediction.components.ModelEvaluation import ModelEvaluation
 
 if __name__ == "__main__":
     try:
@@ -16,21 +17,25 @@ if __name__ == "__main__":
         trainingPipelineConfig = config_entity.TrainingPipeLineConfig()
         dataIngestionConfig = config_entity.DataIngestionConfig(trainingPipelineConfig)
         data_ingestion_config = DataIngestion(dataIngestionConfig)
-        dataIngestionConfig = data_ingestion_config.initiateDataIngestionConfig()
+        dataIngestionArtifacts = data_ingestion_config.initiateDataIngestionConfig()
         
-        DataFrame = pd.read_csv(dataIngestionConfig.featureStoreDIR)
+        DataFrame = pd.read_csv(dataIngestionArtifacts.featureStoreDIR)
         
         dataValidationConfig = config_entity.DataValidationConfig(trainingPipelineConfig)
-        data_validation_config = DataValidation(dataValidationConfig)
-        data_validation_config.initiateDataValidationConfig(DataFrame)
+        dataValidationConfig = DataValidation(dataValidationConfig)
+        dataValidationArtifacts = dataValidationConfig.initiateDataValidationConfig(DataFrame)
 
         dataTransformConfig = config_entity.DataTransformationConfig(trainingPipelineConfig)
         data_transformation_config = DataTransformation(dataTransformConfig,dataIngestionConfig)
-        dataTransformationConfig = data_transformation_config.initiateDataTransformConfig(DataFrame)
+        dataTransformationArtifacts = data_transformation_config.initiateDataTransformConfig(DataFrame)
 
         modelTrainingConfig = config_entity.ModelTrainerConfig(trainingPipelineConfig)
-        model_trainer_config = ModelTrainer(modelTrainingConfig,dataTransformationConfig)
-        modelTrainingConfig = model_trainer_config.initiateModelTraingConfig()
+        model_trainer_config = ModelTrainer(modelTrainingConfig,dataTransformationArtifacts)
+        modelTrainerArtifacts = model_trainer_config.initiateModelTraingConfig()
+
+        modelEvaluationConfig = config_entity.ModelEvaluateConfig(trainingPipelineConfig)
+        modelEvalConfig = ModelEvaluation(modelEvaluationConfig, dataIngestionArtifacts, dataTransformationArtifacts, modelTrainerArtifacts)
+        modelEvalArtifacts = modelEvalConfig.initiateModelEvaluation()
 
     except Exception as e:
         raise InvestmentPredictionException(e,sys)

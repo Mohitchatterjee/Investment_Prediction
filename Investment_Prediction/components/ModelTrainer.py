@@ -48,7 +48,7 @@ class ModelTrainer:
 
             pickle.dump(ModelObj, open(self.modelTrainingConfig.modelPath, 'wb'))
 
-            model_training_artifact = artifact_entity.ModelTranerArtifact(
+            model_training_artifact = artifact_entity.ModelTrainerArtifact(
                 modelPath=modelPath,
                 trainingAccuracy=Training_Accuracy,
                 testingAccuracy=Validation_Accuracy

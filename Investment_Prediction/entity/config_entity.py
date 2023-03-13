@@ -37,5 +37,10 @@ class ModelTrainerConfig:
         self.modelTrainerDIR = os.path.join(trainingPipelineConfig.artifactDir,'Model Trainer')
         self.modelPath = os.path.join(self.modelTrainerDIR,'model','predictionModel.pkl')
 
-class ModelEvaluateConfig:...
+class ModelEvaluateConfig:
+    def __init__(self,trainingPipelineConfig):
+        self.changeThreshold = 0.01
+        
+
+
 class ModelPusherConfig:...
