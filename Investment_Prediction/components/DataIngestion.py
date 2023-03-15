@@ -30,6 +30,8 @@ class DataIngestion:
             # os.makedirs(testPath,exist_ok=True)
 
             df.to_csv(path_or_buf=self.dataIngestionConfig.featureStoreDIR,index=False)  
+            trainData.to_csv(path_or_buf=self.dataIngestionConfig.trainingDataDIR,index=False)  
+            testData.to_csv(path_or_buf=self.dataIngestionConfig.testDataDIR,index=False)  
             # testData.to_csv(path_or_buf=self.dataIngestionConfig.testDataDIR,index=False)
 
             #Prepare artifact

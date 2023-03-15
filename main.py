@@ -9,6 +9,8 @@ from Investment_Prediction.components.DataValidation import DataValidation
 from Investment_Prediction.components.DataTransformation import DataTransformation
 from Investment_Prediction.components.ModelTrainer import ModelTrainer
 from Investment_Prediction.components.ModelEvaluation import ModelEvaluation
+from Investment_Prediction.components.ModelPusher import ModelPusher
+
 
 if __name__ == "__main__":
     try:
@@ -33,9 +35,15 @@ if __name__ == "__main__":
         model_trainer_config = ModelTrainer(modelTrainingConfig,dataTransformationArtifacts)
         modelTrainerArtifacts = model_trainer_config.initiateModelTraingConfig()
 
+        
         modelEvaluationConfig = config_entity.ModelEvaluateConfig(trainingPipelineConfig)
         modelEvalConfig = ModelEvaluation(modelEvaluationConfig, dataIngestionArtifacts, dataTransformationArtifacts, modelTrainerArtifacts)
         modelEvalArtifacts = modelEvalConfig.initiateModelEvaluation()
+
+        
+        modelPusherConfig = config_entity.ModelPusherConfig(trainingPipelineConfig)
+        modelPushConfig = ModelPusher(modelPusherConfig,dataTransformationArtifacts,modelTrainerArtifacts)
+        modelPusherArtifacts = modelPushConfig.initiateModelPusherConfig()
 
     except Exception as e:
         raise InvestmentPredictionException(e,sys)

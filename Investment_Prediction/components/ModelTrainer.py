@@ -36,20 +36,22 @@ class ModelTrainer:
             X_test = utils.load_numpy_array_data(self.dataTransformationConfig.X_TestPath)
             Y_test = utils.load_numpy_array_data(self.dataTransformationConfig.Y_TestPath)
            
-
-            ModelObj = self.trainModel(X_train,Y_train)
             
+            ModelObj = self.trainModel(X_train,Y_train)
+
+
             Training_Accuracy = metrics.roc_auc_score(Y_train, ModelObj.predict_proba(X_train)[:,1])
 
             Validation_Accuracy = metrics.roc_auc_score(Y_test, ModelObj.predict_proba(X_test)[:,1])
 
             modelPath = os.path.dirname(self.modelTrainingConfig.modelPath)
+            
             os.makedirs(modelPath,exist_ok=True)
 
             pickle.dump(ModelObj, open(self.modelTrainingConfig.modelPath, 'wb'))
 
             model_training_artifact = artifact_entity.ModelTrainerArtifact(
-                modelPath=modelPath,
+                modelPath=self.modelTrainingConfig.modelPath,
                 trainingAccuracy=Training_Accuracy,
                 testingAccuracy=Validation_Accuracy
             )

@@ -10,7 +10,7 @@ class DataValidationArtifact:
 
 @dataclass
 class DataTransformationArtifact:
-    # transformationObjPath:str
+    transformationObjPath:str
     X_TrainPath:str
     X_TestPath:str
     Y_TrainPath:str
@@ -26,4 +26,8 @@ class ModelTrainerArtifact:
 class ModelEvaluateArtifact:
     isModelAccepted:bool
     improveAccuracy:float
-class ModelPusherArtifact:...
+
+@dataclass
+class ModelPusherArtifact:
+    dataPusherDIR:str
+    savedModelDIR:str

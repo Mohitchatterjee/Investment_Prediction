@@ -3,4 +3,5 @@ pymongo
 pandas
 python-dotenv
 pyyaml
+dill
 -e .

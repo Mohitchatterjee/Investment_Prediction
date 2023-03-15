@@ -90,7 +90,7 @@ class DataValidation:
 
             utils.insertintoYamlFile(self.dataValidationConfig.reportFilePath,driftReport)
 
-            print(presentDataFrame.shape)
+            
 
 
         except Exception as e:

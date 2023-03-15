@@ -18,6 +18,7 @@ class DataTransformation:
             try:
                 self.dataTransformationConfig = dataTransformationConfig
                 self.dataIngestionArtifact = dataIngestionArtifact
+                
 
             except Exception as e:
                 raise InvestmentPredictionException(e,sys) 
@@ -45,12 +46,10 @@ class DataTransformation:
         except Exception as e:
             raise InvestmentPredictionException(e,sys)
 
-    def standardScalerMethod(self,featureDF):
+    def getTransformerObj(self):
         try:
-
             scaler = StandardScaler()
-            features = scaler.fit_transform(featureDF)
-            return features
+            return scaler
 
         except Exception as e:
             raise InvestmentPredictionException(e,sys)  
@@ -72,7 +71,9 @@ class DataTransformation:
 
             featureDF = DataFrame[['open-close','low-high','is_quarter_end']]
             targetDF = DataFrame[['target']]
-            scaledData = self.standardScalerMethod(featureDF)
+            transformerOBJ = self.getTransformerObj()
+            scaledData = transformerOBJ.fit_transform(featureDF)
+
             X_train, X_test, Y_train, Y_test = self.splitingData(scaledData,targetDF)
             
             X_TrainPath = os.path.dirname(self.dataTransformationConfig.X_TrainPath)
@@ -97,8 +98,10 @@ class DataTransformation:
 
             print('Data Transformation Done...')
 
+            utils.save_object(file_path=self.dataTransformationConfig.transformationObjPath,obj=transformerOBJ)
 
             data_transformation_artifact = artifact_entity.DataTransformationArtifact(
+                transformationObjPath=self.dataTransformationConfig.transformationObjPath,
                 X_TrainPath=self.dataTransformationConfig.X_TrainPath,
                 X_TestPath=self.dataTransformationConfig.X_TrainPath,
                 Y_TrainPath=self.dataTransformationConfig.Y_TrainPath,
