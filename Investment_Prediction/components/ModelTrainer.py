@@ -44,6 +44,7 @@ class ModelTrainer:
 
             Validation_Accuracy = metrics.roc_auc_score(Y_test, ModelObj.predict_proba(X_test)[:,1])
 
+            print('Before Evaluation Accuracy--->',Validation_Accuracy)
             modelPath = os.path.dirname(self.modelTrainingConfig.modelPath)
             
             os.makedirs(modelPath,exist_ok=True)

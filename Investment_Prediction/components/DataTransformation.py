@@ -103,9 +103,9 @@ class DataTransformation:
             data_transformation_artifact = artifact_entity.DataTransformationArtifact(
                 transformationObjPath=self.dataTransformationConfig.transformationObjPath,
                 X_TrainPath=self.dataTransformationConfig.X_TrainPath,
-                X_TestPath=self.dataTransformationConfig.X_TrainPath,
+                X_TestPath=self.dataTransformationConfig.X_TestPath,
                 Y_TrainPath=self.dataTransformationConfig.Y_TrainPath,
-                Y_TestPath=self.dataTransformationConfig.Y_TrainPath
+                Y_TestPath=self.dataTransformationConfig.Y_TestPath
             )
 
             return data_transformation_artifact

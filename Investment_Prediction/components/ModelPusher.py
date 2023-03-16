@@ -20,27 +20,24 @@ class ModelPusher:
 
     def initiateModelPusherConfig(self):
         try:
-            
+           
             # Load Obj
-            transformer = load_object(self.dataTransformerArtifact.transformationObjPath)
-             
+            transformer = load_object(self.dataTransformerArtifact.transformationObjPath) 
             model = load_object(self.modelTrainerArtifact.modelPath)
             
             # save Obj
             
-            save_object(self.modelPusherConfig.insideModelPath,obj=model)
-            
-            save_object(self.modelPusherConfig.insideTransformerPath,obj=transformer)
-            
-            
+            save_object(self.modelPusherConfig.insideModelPath,obj=model)   
+            save_object(self.modelPusherConfig.insideTransformerPath,obj=transformer) 
             
             modelPath = self.modelResolver.getLatestSaveModelPath()
-            print(modelPath)
             transformerPath = self.modelResolver.getLatestTransformerPath()
+           
+            print(modelPath)
             print(transformerPath)
-            
-            save_object(file_Path=modelPath,obj=model)
-            save_object(file_Path=transformerPath,obj=transformer)
+            save_object(modelPath,obj=model)
+            print('*******')
+            save_object(transformerPath,obj=transformer)
 
             modelPusherArtifacts = artifact_entity.ModelPusherArtifact(dataPusherDIR=self.modelPusherConfig.insideSavedModel,
             savedModelDIR=self.modelPusherConfig.outsideSavedModel)
@@ -48,4 +45,4 @@ class ModelPusher:
             return modelPusherArtifacts
 
         except Exception as e:
-            InvestmentPredictionException(e,sys)
+            raise InvestmentPredictionException(e,sys)
