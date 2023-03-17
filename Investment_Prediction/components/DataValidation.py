@@ -11,7 +11,6 @@ from Investment_Prediction import utils
 class DataValidation:
     def __init__(self,dataValidationConfig:config_entity.DataValidationConfig):
         try:
-            logging.info('====Data Validation===')
             self.dataValidationConfig = dataValidationConfig   
             self.validationError = dict() 
         except Exception as e:
@@ -81,17 +80,16 @@ class DataValidation:
 
     def initiateDataValidationConfig(self,df):
         try:
+            logging.info('=====================> Data Validation <========================')
             presentDataFrame = self.dropMissingColumn(df)
 
-            if self.isRequiredColumsExist(df,presentDataFrame):print('All Good in Validation Part')
-            else:print('Column Mistmatch !!')
+            logging.info('Checking Required Columns are Exist or not !!')
+            if self.isRequiredColumsExist(df,presentDataFrame):logging.info('Required Columns are Exist')
+            else:logging.info('Required Columns are not Exist !!')
 
+            logging.info('Drift Report is generating..')
             driftReport = self.dataDrift(df,presentDataFrame)
-
             utils.insertintoYamlFile(self.dataValidationConfig.reportFilePath,driftReport)
-
-            
-
 
         except Exception as e:
             raise InvestmentPredictionException(e,sys)

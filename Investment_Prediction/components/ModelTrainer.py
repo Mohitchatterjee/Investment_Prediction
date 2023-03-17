@@ -30,27 +30,27 @@ class ModelTrainer:
 
     def initiateModelTraingConfig(self):
         try:
-            
+            logging.info('=================> Model Training <===================')
             X_train = utils.load_numpy_array_data(self.dataTransformationConfig.X_TrainPath)
             Y_train = utils.load_numpy_array_data(self.dataTransformationConfig.Y_TrainPath)
             X_test = utils.load_numpy_array_data(self.dataTransformationConfig.X_TestPath)
             Y_test = utils.load_numpy_array_data(self.dataTransformationConfig.Y_TestPath)
            
-            
+            logging.info('Start Training The Model')
             ModelObj = self.trainModel(X_train,Y_train)
 
 
             Training_Accuracy = metrics.roc_auc_score(Y_train, ModelObj.predict_proba(X_train)[:,1])
-
+            logging.info(f'Traning Accuracy is {Training_Accuracy*100}')
             Validation_Accuracy = metrics.roc_auc_score(Y_test, ModelObj.predict_proba(X_test)[:,1])
+            logging.info(f'Validation Accuracy is {Validation_Accuracy*100}')
 
-            print('Before Evaluation Accuracy--->',Validation_Accuracy)
+            logging.info('Saving Model...')
             modelPath = os.path.dirname(self.modelTrainingConfig.modelPath)
-            
             os.makedirs(modelPath,exist_ok=True)
-
             pickle.dump(ModelObj, open(self.modelTrainingConfig.modelPath, 'wb'))
 
+            logging.info('Preparing Model Training Artifacts')
             model_training_artifact = artifact_entity.ModelTrainerArtifact(
                 modelPath=self.modelTrainingConfig.modelPath,
                 trainingAccuracy=Training_Accuracy,

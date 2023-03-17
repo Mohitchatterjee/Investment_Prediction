@@ -14,6 +14,8 @@ class DataIngestion:
     
     def initiateDataIngestionConfig(self):
         try:
+            logging.info('================> Data Ingestion <================')
+
             df =  getCollectionAsDataFrame(DataBaseName=self.dataIngestionConfig.databaseName,
                                         CollectionName=self.dataIngestionConfig.colectionName)
 
@@ -23,18 +25,13 @@ class DataIngestion:
             featureStorePath = os.path.dirname(self.dataIngestionConfig.featureStoreDIR)
             os.makedirs(featureStorePath,exist_ok=True)
 
-            # trainingPath = os.path.dirname(self.dataIngestionConfig.trainingDataDIR)
-            # os.makedirs(trainingPath,exist_ok=True)
-
-            # testPath = os.path.dirname(self.dataIngestionConfig.testDataDIR)
-            # os.makedirs(testPath,exist_ok=True)
-
+            logging.info('Saving Dataframe')
             df.to_csv(path_or_buf=self.dataIngestionConfig.featureStoreDIR,index=False)  
             trainData.to_csv(path_or_buf=self.dataIngestionConfig.trainingDataDIR,index=False)  
             testData.to_csv(path_or_buf=self.dataIngestionConfig.testDataDIR,index=False)  
-            # testData.to_csv(path_or_buf=self.dataIngestionConfig.testDataDIR,index=False)
-
+            
             #Prepare artifact
+            logging.info('Preparing Data Ingestion Artifacts')
             data_ingestion_artifact = artifact_entity.DataIngestionArtifact(
                     featureStoreDIR=self.dataIngestionConfig.featureStoreDIR,
                 trainingDataDIR=self.dataIngestionConfig.trainingDataDIR, 

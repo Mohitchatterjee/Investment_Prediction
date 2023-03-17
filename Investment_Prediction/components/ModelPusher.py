@@ -20,25 +20,25 @@ class ModelPusher:
 
     def initiateModelPusherConfig(self):
         try:
+            logging.info('=================> Model Pusher <===================')
            
-            # Load Obj
+            
+            logging.info('Loading Object')
             transformer = load_object(self.dataTransformerArtifact.transformationObjPath) 
             model = load_object(self.modelTrainerArtifact.modelPath)
             
-            # save Obj
             
+            logging.info('Saving Object')
             save_object(self.modelPusherConfig.insideModelPath,obj=model)   
             save_object(self.modelPusherConfig.insideTransformerPath,obj=transformer) 
             
-            modelPath = self.modelResolver.getLatestSaveModelPath()
-            transformerPath = self.modelResolver.getLatestTransformerPath()
-           
-            print(modelPath)
-            print(transformerPath)
+            modelPath = self.modelResolver.getLatestSaveModelPath()           
+            transformerPath = self.modelResolver.getLatestSaveTransformerPath()
+            
             save_object(modelPath,obj=model)
-            print('*******')
             save_object(transformerPath,obj=transformer)
 
+            logging.info('Preparing Model Pusher Artifacts')
             modelPusherArtifacts = artifact_entity.ModelPusherArtifact(dataPusherDIR=self.modelPusherConfig.insideSavedModel,
             savedModelDIR=self.modelPusherConfig.outsideSavedModel)
             print('Model Pusher Done...')
