@@ -1,0 +1,13 @@
+version: "2"
+services:
+  application:
+    image: ${IMAGE_IMAGE}
+    container_name: InvestmentPrediction
+    ports:
+      - "8080:8080"
+    enviroment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
+      - MongoDbUrl=${MongoDbUrl}
+      - BUCKET_NAME=${BUCKET_NAME}
