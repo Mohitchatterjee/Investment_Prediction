@@ -15,7 +15,9 @@ class DataTransformationArtifact:
     X_TestPath:str
     Y_TrainPath:str
     Y_TestPath:str
-
+    FeatureInputPath:str
+    TargetFeaturepath:str
+    
 @dataclass
 class ModelTrainerArtifact:
     modelPath:str

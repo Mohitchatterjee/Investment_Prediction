@@ -23,18 +23,7 @@ class ModelResolver:
         except Exception as e:
             raise e
 
-    # def getLatestTransformerPath(self):
-    #     try:
-    #         latest_dir = self.getLatestDirPath()
-    #         if latest_dir is None:
-                
-    #             raise Exception(f"Transformer is not available")
-                
-            
-    #         return os.path.join(latest_dir,self.transformerDirName,'transformer.pkl')
-    #     except Exception as e:
-    #         print(str(e))
-    #         raise e
+    
 
     def getLatestModelPath(self):
         try:

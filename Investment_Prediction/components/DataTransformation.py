@@ -84,6 +84,16 @@ class DataTransformation:
             X_train, X_test, Y_train, Y_test = self.splitingData(scaledData,targetDF)
             
             logging.info('Split Data Saving...')
+
+            FeatureInputPath = os.path.dirname(self.dataTransformationConfig.FeatureInputPath)
+            os.makedirs(FeatureInputPath,exist_ok=True)
+            np.save(self.dataTransformationConfig.FeatureInputPath, featureDF, allow_pickle=True)
+
+            TargetFeaturepath = os.path.dirname(self.dataTransformationConfig.TargetFeaturepath)
+            os.makedirs(TargetFeaturepath,exist_ok=True)
+            np.save(self.dataTransformationConfig.TargetFeaturepath, targetDF, allow_pickle=True)
+
+
             X_TrainPath = os.path.dirname(self.dataTransformationConfig.X_TrainPath)
             os.makedirs(X_TrainPath,exist_ok=True)
             np.save(self.dataTransformationConfig.X_TrainPath, X_train, allow_pickle=True)
@@ -114,7 +124,9 @@ class DataTransformation:
                 X_TrainPath=self.dataTransformationConfig.X_TrainPath,
                 X_TestPath=self.dataTransformationConfig.X_TestPath,
                 Y_TrainPath=self.dataTransformationConfig.Y_TrainPath,
-                Y_TestPath=self.dataTransformationConfig.Y_TestPath
+                Y_TestPath=self.dataTransformationConfig.Y_TestPath,
+                FeatureInputPath=self.dataTransformationConfig.FeatureInputPath,
+                TargetFeaturepath=self.dataTransformationConfig.TargetFeaturepath
             )
 
             return data_transformation_artifact

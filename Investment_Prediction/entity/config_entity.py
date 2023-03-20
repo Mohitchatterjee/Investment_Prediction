@@ -3,7 +3,7 @@ from datetime import datetime
 
 class TrainingPipeLineConfig:
     def __init__(self):
-        self.artifactDir = os.path.join(os.getcwd(),'artifacts',f"{datetime.now().strftime('%m%d%Y__%H%M%S')}")
+        self.artifactDir = os.path.join(os.getcwd(),'artifacts',f"{datetime.now().strftime('-%d-%m-%Y__%H:%M:%S')}")
 
 class DataIngestionConfig:
     def __init__(self,trainingPipelineConfig):
@@ -31,7 +31,8 @@ class DataTransformationConfig:
         self.X_TestPath = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation','X_test.npy')
         self.Y_TrainPath = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation','Y_train.npy')
         self.Y_TestPath = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation','Y_test.npy')
-
+        self.FeatureInputPath = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation','FeatureInput.npy')
+        self.TargetFeaturepath = os.path.join(trainingPipelineConfig.artifactDir,'Data Transformation','TargetInput.npy')
 class ModelTrainerConfig:
      def __init__(self,trainingPipelineConfig):
         self.modelTrainerDIR = os.path.join(trainingPipelineConfig.artifactDir,'Model Trainer')

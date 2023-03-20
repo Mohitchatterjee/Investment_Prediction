@@ -58,3 +58,25 @@ def load_object(file_path: str, ) -> object:
     except Exception as e:
         print(str(e))
         raise InvestmentPredictionException(e, sys) from e
+
+
+def addReleventFeatures(DataFrame):
+        try:
+
+            splitted = DataFrame['Date'].str.split('-', expand=True)
+            DataFrame['day'] = splitted[1].astype('int')
+            DataFrame['month'] = splitted[2].astype('int')
+            DataFrame['year'] = splitted[0].astype('int')
+
+
+            DataFrame['is_quarter_end'] = np.where(DataFrame['month']%3==0,1,0)
+            DataFrame['open-close']  = DataFrame['Open'] - DataFrame['Close']
+            DataFrame['low-high']  = DataFrame['Low'] - DataFrame['High']
+
+            # if today's price is greater than yesterday's price then 1
+            DataFrame['target'] = np.where(DataFrame['Close'].shift(-1) > DataFrame['Close'], 1, 0)
+
+            return DataFrame
+            
+        except Exception as e:
+            raise InvestmentPredictionException(e,sys)

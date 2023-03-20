@@ -48,7 +48,7 @@ class ModelEvaluation:
             Y_test = utils.load_numpy_array_data(self.dataTransformationArtifacts.Y_TestPath)
 
 
-              
+            
             Previous_Validation_Accuracy = metrics.roc_auc_score(Y_test, modelObj.predict_proba(X_test)[:,1])
             logging.info(f'Previous Data Accuracy is {Previous_Validation_Accuracy*100}') 
             
