@@ -11,6 +11,3 @@ class EnviromentVariable():
 envVar = EnviromentVariable()
 Mongo_client = pymongo.MongoClient(envVar.MongoDbUrl)
 
-# DataBaseName = 'Stocks_Price'
-# CollectionName = 'Company'
-# DataSetPath = '/config/workspace/Google_Stock_Price_Train.csv'
