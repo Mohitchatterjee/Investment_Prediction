@@ -1,9 +1,11 @@
 import pymongo
 import json
 import pandas as pd
+from Investment_Prediction.config import Mongo_client
 
-client = pymongo.MongoClient('mongodb+srv://mohit:mohit@cluster0.frbovmx.mongodb.net/test')
 
+# client = pymongo.MongoClient('mongodb+srv://mohit:mohit@cluster0.frbovmx.mongodb.net/test')
+# client = pymongo.MongoClient('mongodb+srv://mohit:mohit@cluster0.ietyo8r.mongodb.net/test')
 DataBaseName = 'Stocks_Name'
 CollectionName = 'Price'
 DataSetPath = '/config/workspace/GOOG.csv'
@@ -19,4 +21,4 @@ if __name__ == '__main__':
     for _ in json_Data.values():ListjsonData.append(_)
 
 # Dumb Json data into mongoDB
-client[DataBaseName][CollectionName].insert_many(ListjsonData)
+Mongo_client[DataBaseName][CollectionName].insert_many(ListjsonData)
