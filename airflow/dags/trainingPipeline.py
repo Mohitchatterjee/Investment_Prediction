@@ -6,7 +6,6 @@ import os
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 
-
 with DAG(
     'InvestmentPrediction',
     default_args={'retries': 2},
