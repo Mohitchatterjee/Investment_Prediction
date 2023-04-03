@@ -12,4 +12,5 @@ RUN airflow users create  -e avnish@ineuron.ai -f Avnish -l Yadav -p admin -r Ad
 RUN chmod 777 start.sh
 RUN apt update -y && apt install awscli -y\
 ENTRYPOINT ["/bin/sh"]
-CMD ["start.sh"]                                                                     
+CMD ["start.sh"]  
+
